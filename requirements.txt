@@ -1,0 +1,7 @@
+Flask
+pg8000
+python-dotenv
+Werkzeug
+Pillow
+pandas
+openpyxl

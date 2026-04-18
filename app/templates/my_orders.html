@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+<div class="page-title-row">
+    <h1>Мои заказы</h1>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Номер</th>
+        <th>Дата заказа</th>
+        <th>Дата доставки</th>
+        <th>Пункт выдачи</th>
+        <th>Код</th>
+        <th>Статус</th>
+    </tr>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.order_number }}</td>
+        <td>{{ row.order_date }}</td>
+        <td>{{ row.delivery_date }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.pickup_code }}</td>
+        <td>{{ row.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

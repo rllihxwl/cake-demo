@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Все заказы{% endblock %}
+
+{% block content %}
+<div class="page-title-row">
+    <h1>Все заказы</h1>
+</div>
+
+<form method="get" class="filters">
+    <input type="text" name="search" placeholder="Поиск по номеру, клиенту, коду" value="{{ search }}">
+
+    <select name="status">
+        <option value="">Все статусы</option>
+        {% for row in statuses %}
+            <option value="{{ row }}" {% if status == row %}selected{% endif %}>{{ row }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="sort">
+        <option value="date_desc" {% if sort_value == 'date_desc' %}selected{% endif %}>Дата по убыванию</option>
+        <option value="date_asc" {% if sort_value == 'date_asc' %}selected{% endif %}>Дата по возрастанию</option>
+        <option value="number_asc" {% if sort_value == 'number_asc' %}selected{% endif %}>Номер по возрастанию</option>
+        <option value="number_desc" {% if sort_value == 'number_desc' %}selected{% endif %}>Номер по убыванию</option>
+    </select>
+
+    <button type="submit" class="btn btn-accent">Применить</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>Номер</th>
+        <th>Клиент</th>
+        <th>Дата заказа</th>
+        <th>Дата доставки</th>
+        <th>Пункт выдачи</th>
+        <th>Код</th>
+        <th>Статус</th>
+        <th>Действие</th>
+    </tr>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.order_number }}</td>
+        <td>{{ row.full_name }}</td>
+        <td>{{ row.order_date }}</td>
+        <td>{{ row.delivery_date }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.pickup_code }}</td>
+        <td>{{ row.status }}</td>
+        <td>
+            <form method="post" action="{{ url_for('update_order_status', order_id=row.id) }}" class="inline-form">
+                <select name="status">
+                    {% for item in statuses %}
+                        <option value="{{ item }}" {% if row.status == item %}selected{% endif %}>{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-main">Сохранить</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

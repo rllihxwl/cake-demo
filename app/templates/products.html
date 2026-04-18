@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог тортов{% endblock %}
+
+{% block content %}
+<div class="page-title-row">
+    <h1>Каталог тортов</h1>
+    {% if current_role == 'admin' %}
+        <a href="{{ url_for('add_product') }}" class="btn btn-main">Добавить товар</a>
+    {% endif %}
+</div>
+
+{% if not is_guest %}
+<form method="get" class="filters">
+    <input type="text" name="search" placeholder="Поиск по названию и описанию" value="{{ search }}">
+
+    <select name="category_id">
+        <option value="">Все категории</option>
+        {% for row in categories %}
+            <option value="{{ row.id }}" {% if category_id == row.id|string %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="cake_type_id">
+        <option value="">Все типы</option>
+        {% for row in cake_types %}
+            <option value="{{ row.id }}" {% if cake_type_id == row.id|string %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="brand_id">
+        <option value="">Все кондитерские</option>
+        {% for row in brands %}
+            <option value="{{ row.id }}" {% if brand_id == row.id|string %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="sort">
+        <option value="">Без сортировки</option>
+        <option value="price_asc" {% if sort_value == 'price_asc' %}selected{% endif %}>Цена по возрастанию</option>
+        <option value="price_desc" {% if sort_value == 'price_desc' %}selected{% endif %}>Цена по убыванию</option>
+        <option value="name_asc" {% if sort_value == 'name_asc' %}selected{% endif %}>По названию</option>
+        <option value="discount_desc" {% if sort_value == 'discount_desc' %}selected{% endif %}>По скидке</option>
+    </select>
+
+    <button type="submit" class="btn btn-accent">Применить</button>
+</form>
+{% endif %}
+
+<div class="cards">
+    {% for item in items %}
+        <div class="card {% if item.stock_qty == 0 %}card-zero{% endif %} {% if item.discount_percent > 15 %}card-discount{% endif %}">
+            <div class="card-image-block">
+                <img src="{{ url_for('static', filename=item.image_path) }}" alt="img" class="card-image">
+            </div>
+
+            <div class="card-body">
+                <div class="card-top">
+                    <div>
+                        <h3>{{ item.name }}</h3>
+                        <div>{{ item.article }}</div>
+                    </div>
+                    <div class="stock-block">На складе: {{ item.stock_qty }}</div>
+                </div>
+
+                <div class="card-text">{{ item.description }}</div>
+
+                <div class="meta-grid">
+                    <div><b>Категория:</b> {{ item.category_name }}</div>
+                    <div><b>Тип:</b> {{ item.cake_type_name }}</div>
+                    <div><b>Кондитерская:</b> {{ item.brand_name }}</div>
+                    <div><b>Поставщик:</b> {{ item.supplier_name }}</div>
+                    <div><b>Ед. изм.:</b> {{ item.unit }}</div>
+                    <div><b>Скидка:</b> {{ item.discount_percent }}%</div>
+                </div>
+
+                <div class="price-row">
+                    {% if item.discount_percent > 0 %}
+                        <span class="old-price">{{ '%.2f'|format(item.price) }} ₽</span>
+                        <span class="new-price">{{ '%.2f'|format(item.final_price) }} ₽</span>
+                    {% else %}
+                        <span class="new-price">{{ '%.2f'|format(item.price) }} ₽</span>
+                    {% endif %}
+                </div>
+
+                {% if current_role == 'admin' %}
+                <div class="actions-row">
+                    <a href="{{ url_for('edit_product', product_id=item.id) }}" class="btn btn-main">Редактировать</a>
+                    <form method="post" action="{{ url_for('delete_product', product_id=item.id) }}">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить товар?')">Удалить</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

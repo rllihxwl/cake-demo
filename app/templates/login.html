@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/Icon.ico') }}">
+</head>
+<body class="login-page">
+    <div class="login-card">
+        <div class="login-head">
+            <img src="{{ url_for('static', filename='images/picture.png') }}" alt="logo" class="login-logo">
+            <h1>Сладкий рай</h1>
+            <div>Вход в систему</div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="messages">
+                    {% for category, message in messages %}
+                        <div class="message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('login') }}" class="login-form">
+            <label>Логин</label>
+            <input type="text" name="login" required>
+
+            <label>Пароль</label>
+            <input type="password" name="password" required>
+
+            <button type="submit" class="btn btn-main">Войти</button>
+            <a href="{{ url_for('guest_login') }}" class="btn btn-accent">Войти как гость</a>
+        </form>
+    </div>
+</body>
+</html>

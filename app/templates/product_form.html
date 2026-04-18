@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if item %}Редактирование товара{% else %}Добавление товара{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-title-row">
+    <h1>{% if item %}Редактирование товара{% else %}Добавление товара{% endif %}</h1>
+    <a href="{{ url_for('products') }}" class="btn btn-accent">Назад</a>
+</div>
+
+<form method="post" enctype="multipart/form-data" class="edit-form">
+    <div class="form-grid">
+        <div>
+            <label>Артикул</label>
+            <input type="text" name="article" value="{{ item.article if item else '' }}" required>
+        </div>
+
+        <div>
+            <label>Название</label>
+            <input type="text" name="name" value="{{ item.name if item else '' }}" required>
+        </div>
+
+        <div>
+            <label>Единица измерения</label>
+            <input type="text" name="unit" value="{{ item.unit if item else 'шт.' }}" required>
+        </div>
+
+        <div>
+            <label>Цена</label>
+            <input type="text" name="price" value="{{ item.price if item else '' }}" required>
+        </div>
+
+        <div>
+            <label>Количество на складе</label>
+            <input type="number" name="stock_qty" value="{{ item.stock_qty if item else 0 }}" required>
+        </div>
+
+        <div>
+            <label>Скидка</label>
+            <input type="number" name="discount_percent" value="{{ item.discount_percent if item else 0 }}" required>
+        </div>
+
+        <div>
+            <label>Категория</label>
+            <select name="category_id" required>
+                {% for row in categories %}
+                    <option value="{{ row.id }}" {% if item and item.category_id == row.id %}selected{% endif %}>{{ row.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Тип торта</label>
+            <select name="cake_type_id" required>
+                {% for row in cake_types %}
+                    <option value="{{ row.id }}" {% if item and item.cake_type_id == row.id %}selected{% endif %}>{{ row.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Кондитерская</label>
+            <select name="brand_id" required>
+                {% for row in brands %}
+                    <option value="{{ row.id }}" {% if item and item.brand_id == row.id %}selected{% endif %}>{{ row.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Поставщик</label>
+            <select name="supplier_id" required>
+                {% for row in suppliers %}
+                    <option value="{{ row.id }}" {% if item and item.supplier_id == row.id %}selected{% endif %}>{{ row.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Изображение</label>
+            <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp">
+        </div>
+    </div>
+
+    <div>
+        <label>Описание</label>
+        <textarea name="description">{{ item.description if item else '' }}</textarea>
+    </div>
+
+    {% if item %}
+        <div>
+            <img src="{{ url_for('static', filename=item.image_path) }}" alt="preview" class="preview-image">
+        </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-main">Сохранить</button>
+</form>
+{% endblock %}

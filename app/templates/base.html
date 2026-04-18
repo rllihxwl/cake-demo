@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Сладкий рай{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/Icon.ico') }}">
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-left">
+            <a href="{{ url_for('products') }}" class="logo-link">
+                <img src="{{ url_for('static', filename='images/picture.png') }}" alt="logo" class="logo">
+                <link rel="icon" href="{{ url_for('static', filename='images/Icon.ico') }}">
+                <span class="brand-name">Сладкий рай</span>
+            </a>
+        </div>
+        <div class="topbar-right">
+            <span>{{ role_label }}</span>
+            {% if current_user %}
+                <span>{{ current_user.full_name }}</span>
+            {% endif %}
+            {% if current_user or current_role == 'guest' %}
+                <a href="{{ url_for('logout') }}" class="btn btn-light">Выход</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="menu">
+        <a href="{{ url_for('products') }}">Каталог</a>
+        {% if current_role in ['client', 'manager', 'admin'] %}
+            <a href="{{ url_for('my_orders') }}">Мои заказы</a>
+        {% endif %}
+        {% if current_role in ['manager', 'admin'] %}
+            <a href="{{ url_for('orders') }}">Все заказы</a>
+        {% endif %}
+    </div>
+
+    <div class="page">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="messages">
+                    {% for category, message in messages %}
+                        <div class="message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

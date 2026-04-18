@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+    color: #222;
+}
+
+.topbar {
+    background: #fc34c8;
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.brand {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.topbar-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.page {
+    padding: 20px;
+}
+
+.auth-box {
+    width: 360px;
+    margin: 80px auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.auth-form,
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input,
+select,
+textarea,
+button {
+    font-size: 16px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.btn {
+    display: inline-block;
+    background: #fc34c8;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn.second {
+    background: #31ebff;
+    color: #222;
+}
+
+.btn.danger {
+    background: #d33;
+    color: white;
+}
+
+.btn.small {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.header-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 220px 220px auto;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 14px;
+    background: white;
+}
+
+.card-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.desc {
+    margin: 10px 0;
+}
+
+.props {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.price-line {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #a00;
+}
+
+.new-price {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+}
+
+.out-card {
+    background: #eef8ff;
+}
+
+.discount-card {
+    border: 2px solid #fc34c8;
+}
+
+.messages {
+    padding: 10px 20px 0 20px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.message.success {
+    background: #e6ffe8;
+}
+
+.message.danger {
+    background: #ffe6e6;
+}
+
+.message.info {
+    background: #eaf6ff;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.order-table th,
+.order-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.menu {
+    background: #31ebff;
+    padding: 12px 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.menu a {
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
