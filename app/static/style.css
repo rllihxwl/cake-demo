@@ -246,8 +246,8 @@ button {
     text-decoration: underline;
 }
 .logo {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
+    border-radius: 10px;
 }

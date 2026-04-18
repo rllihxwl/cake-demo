@@ -51,7 +51,7 @@
     {% for item in items %}
         <div class="card {% if item.stock_qty == 0 %}card-zero{% endif %} {% if item.discount_percent > 15 %}card-discount{% endif %}">
             <div class="card-image-block">
-                <img src="{{ url_for('static', filename=item.image_path) }}" alt="img" class="card-image">
+                <img src="{{ url_for('static', filename=item.image_path.replace('.jpg', '.JPG').replace('.png', '.PNG')) }}" alt="img" class="card-image">
             </div>
 
             <div class="card-body">
